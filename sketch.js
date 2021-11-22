@@ -43,7 +43,11 @@ function draw() {
     background(100);
   } // else disable background, so sprites don't get cleaned up =>
 
-  text("Click to pause - press SPACE to change graphics mode", 10, 20);
+  if (height > width) { // assumed mobile screen
+    text("Tap to pause - double-tap to change graphics mode", 10, 20);
+  } else { // assumed desktop screen
+    text("Click to pause - double-click to change graphics mode", 10, 20);
+  }
 
   asteroids.forEach((a) => {
     if (!a.isDead) {
@@ -76,9 +80,7 @@ function mouseClicked() {
   }
 }
 
-// press spacebar to activate or deactivate chaos graphics mode
-function keyPressed() {
-  if (keyCode == 32) {
+// double-click to activate or deactivate chaos graphics mode
+function doubleClicked() {
     CHAOS_GRAPHICS = !CHAOS_GRAPHICS;
-  }
 }
