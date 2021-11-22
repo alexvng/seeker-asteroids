@@ -1,4 +1,6 @@
-### seeker-destruct
+# seeker-destruct
+
+View the project at https://alexvng.github.io/seeker-asteroids/.
 
 A project made for AME 230 at ASU.
 
