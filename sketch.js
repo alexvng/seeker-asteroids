@@ -4,6 +4,7 @@ let NUM_ASTEROIDS;
 let NUM_SEEKERS = 1;
 let PAUSE_FLAG = false;
 let CHAOS_GRAPHICS = false;
+let SHOW_LINES = false;
 
 function setup() {
   // adapt canvas to screen size
@@ -43,10 +44,13 @@ function draw() {
     background(100);
   } // else disable background, so sprites don't get cleaned up =>
 
-  if (height > width) { // assumed mobile screen
+  if (height > width) {
+    // assumed mobile screen
     text("Tap to pause - double-tap to change graphics mode", 10, 20);
-  } else { // assumed desktop screen
+  } else {
+    // assumed desktop screen
     text("Click to pause - double-click to change graphics mode", 10, 20);
+    text("Press SPACE to spawn an asteroid - press L to show targeting lines", 10, 40);
   }
 
   asteroids.forEach((a) => {
@@ -62,10 +66,10 @@ function draw() {
     } // else nothing (skip dead asteroids)
   });
 
-  seekers.forEach(s => {
+  seekers.forEach((s) => {
     if (!s.isDead) {
       s.update(asteroids, seekers);
-      s.render();
+      s.render(SHOW_LINES);
     } // else nothing (skip dead seekers)
   });
 }
@@ -82,5 +86,24 @@ function mouseClicked() {
 
 // double-click to activate or deactivate chaos graphics mode
 function doubleClicked() {
-    CHAOS_GRAPHICS = !CHAOS_GRAPHICS;
+  CHAOS_GRAPHICS = !CHAOS_GRAPHICS;
+}
+
+function keyPressed() {
+  if (keyCode == 32) {
+    asteroids.push(
+      new Asteroid(
+        mouseX,
+        mouseY,
+        random(-0.5, 0.5), // velocity x,y
+        random(-0.5, 0.5),
+        Math.floor(random(3, 8)), // # of sides
+        random(10, 50), // size
+        random(-0.01, 0.01)
+      )
+    );
+  }
+  if (keyCode == 76) {
+    SHOW_LINES = !SHOW_LINES;
+  }
 }

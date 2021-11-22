@@ -1,5 +1,5 @@
 class Asteroid {
-  DEATH_TIMER = 1000;
+  DEATH_TIMER = 1500;
   constructor(posX, posY, velX, velY, numFaces, radius, rotationRate) {
     this.pos = createVector(posX, posY);
     this.vel = createVector(velX, velY);

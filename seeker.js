@@ -1,7 +1,6 @@
 class Seeker {
   SIZE = 4;
   TIP_LENGTH = 3.5;
-  SHOW_LINES = true;
   NEIGHBOR_DIST = 100; // sight range in boids mode
   TARGETING_LINE_WEIGHT = 0.2;
 
@@ -33,7 +32,7 @@ class Seeker {
         tempTarget = asteroid; // save comparison object, it might be the right one
       }
       // check for collision (with active asteroids only)
-      if (tempDist < asteroid.radius && !asteroid.isDead) {
+      if (tempDist < asteroid.radius && !asteroid.isDead && !this.activateBoidsLogic) {
         asteroid.isDying = true;
         this.isDead = true; // kill seeker, it has struck an asteroid (even if by accident)
       }
@@ -91,7 +90,7 @@ class Seeker {
     if (this.pos.y > height + margin) this.pos.y = 0 - margin;
   }
 
-  render() {
+  render(showLines) {
     push();
     if (this.activateBoidsLogic) {
       fill(255, 0, 255); // magenta
@@ -107,7 +106,7 @@ class Seeker {
       this.pos.y + this.triangleDimensions.x
     );
     // draw a line to current target
-    if (this.target != null && this.SHOW_LINES) {
+    if (this.target != null && showLines) {
       strokeWeight(this.TARGETING_LINE_WEIGHT);
       line(this.pos.x, this.pos.y, this.target.pos.x, this.target.pos.y);
     }
